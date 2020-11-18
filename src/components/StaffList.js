@@ -4,6 +4,15 @@ import StaffItem from './StaffItem';
 class StaffList extends Component {
 
   render() {
+    var { staffs } = this.props;
+    var elmStaffs = staffs.map((staff, index) => {
+      return <StaffItem 
+                key={staff.id}
+                index={index} 
+                staff={staff}
+                onDelete={this.props.onDelete}
+                />
+    })
     return (    
         <table className="table table-bordered table-hover mt-15">
         <thead>
@@ -36,7 +45,7 @@ class StaffList extends Component {
             </td>
             <td></td>
           </tr>
-          <StaffItem />
+          { elmStaffs }
         </tbody>
       </table>
     )
