@@ -11,6 +11,7 @@ class StaffList extends Component {
                 index={index} 
                 staff={staff}
                 onDelete={this.props.onDelete}
+                onUpdate={this.props.onUpdate}
                 />
     })
     return (    

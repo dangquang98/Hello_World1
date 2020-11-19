@@ -10,7 +10,8 @@ class App extends Component {
     super(props)
     this.state = {
       staffs: [], //id: unique, name, gender
-      isDisplayForm: false
+      isDisplayForm: false,
+      staffEditing: null
     }
   }
 
@@ -32,23 +33,43 @@ class App extends Component {
   }
 
   onToggleForm = () => {
-    this.setState({
-      isDisplayForm : !this.state.isDisplayForm
-    });  
+    if (this.state.isDisplayForm && this.state.staffEditing !== null){
+      this.setState({
+        isDisplayForm: true,
+        staffEditing: null
+      });
+    } else {
+      this.setState({
+        isDisplayForm: !this.state.isDisplayForm,
+        staffEditing: null
+      }); 
+    } 
   }
 
   onCloseForm = () => {
     this.setState({
-      isDisplayForm : !this.state.isDisplayForm
+      isDisplayForm : false
     }); 
+  }
+
+  onShowForm = () => {
+    this.setState({
+      isDisplayForm: true
+    })
   }
 
   onSubmit = (data) => {
     var { staffs } = this.state;
-    data.id = this.generateID();
-    staffs.push(data);
+    if(data.id === '') { 
+      data.id = this.generateID();
+      staffs.push(data);
+    } else {
+      var index = this.findIndex(data.id);
+      staffs[index] = data
+    }
     this.setState({
-      staffs: staffs
+      staffs: staffs,
+      staffEditing: null
     });
     localStorage.setItem('staffs', JSON.stringify(staffs));
   }
@@ -77,12 +98,23 @@ class App extends Component {
     }
   }
 
+  onUpdate = (id) => {
+    var { staffs } = this.state;
+    var index = this.findIndex(id);
+    var staffEditing = staffs[index];
+    this.setState({
+      staffEditing: staffEditing
+    })
+    this.onShowForm();
+  }
+
   render() {
-    var { staffs, isDisplayForm } = this.state;
+    var { staffs, isDisplayForm, staffEditing } = this.state;
     var elmStaffForm = isDisplayForm ? 
         <StaffForm 
           onSubmit={this.onSubmit}
           onCloseForm={this.onCloseForm}
+          staff={staffEditing}
         /> : '';
     return (
       <div className="containter">
@@ -114,6 +146,7 @@ class App extends Component {
                 <StaffList 
                   staffs={ staffs }
                   onDelete={this.onDelete}
+                  onUpdate={this.onUpdate}
                 />
               </div>
             </div>

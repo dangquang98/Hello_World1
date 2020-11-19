@@ -5,9 +5,38 @@ class StaffForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: '',
       name: '',
       gender: true
     } 
+  }
+
+  componentWillMount() {
+    if(this.props.staff) {
+      this.setState({
+        id: this.props.staff.id,
+        name: this.props.staff.name,
+        gender: this.props.staff.gender
+      });
+      console.log(this.state);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps && nextProps.staff) {
+      this.setState({
+        id: nextProps.staff.id,
+        name: nextProps.staff.name,
+        gender: nextProps.staff.gender
+      });
+      console.log(this.state);
+    } else if(!nextProps.staff) {
+        this.setState({
+          id: '',
+          name: '',
+          gender: true
+        }); 
+    }
   }
 
   onCloseForm = () => {
@@ -42,11 +71,12 @@ class StaffForm extends Component {
   }
 
   render() {
+    var  { id } = this.state;
     return (
         <div className="panel panel-warning">
               <div className="panel-heading">
                 <h3 className="panel-title">
-                  Add Staff
+                  {id !== '' ? 'Edit Staff' : 'Add Staff'}
                   <span className="fa fa-times-circle text-right"
                         onClick={this.onCloseForm}
                   ></span>
