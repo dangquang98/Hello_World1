@@ -25,7 +25,6 @@ class App extends Component {
 		//   });
 		// }
 	}
-
 	getData = async () => {
 		try {
 			const res = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=5');
