@@ -18,7 +18,6 @@ class StaffForm extends Component {
         name: this.props.staff.name,
         gender: this.props.staff.gender
       });
-      console.log(this.state);
     }
   }
 
@@ -29,7 +28,6 @@ class StaffForm extends Component {
         name: nextProps.staff.name,
         gender: nextProps.staff.gender
       });
-      console.log(this.state);
     } else if(!nextProps.staff) {
         this.setState({
           id: '',
@@ -52,7 +50,7 @@ class StaffForm extends Component {
       value = target.value === 'true' ? true : false;
     }
     this.setState({
-      [name]: value
+      [name]: value // hợp nhất các thuộc tính lại theo mỗi name được xác định ban đầu
     });
   }
 
