@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 class StaffItem extends Component {
 
 	onDelete = () => {
-		this.props.onDelete(this.props.staff.id)
+		this.props.onDelete(this.props.staff.url)
 	}
 
 	onUpdate = () => {
-		this.props.onUpdate(this.props.staff.id)
+		this.props.onUpdate(this.props.staff.url)
 	}
 
 	render() {

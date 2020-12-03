@@ -14,7 +14,7 @@ class StaffForm extends Component {
   componentWillMount() {
     if(this.props.staff) {
       this.setState({
-        id: this.props.staff.id,
+        id: this.props.staff.url,
         name: this.props.staff.name,
         gender: this.props.staff.gender
       });
@@ -24,7 +24,7 @@ class StaffForm extends Component {
   componentWillReceiveProps(nextProps) {
     if(nextProps && nextProps.staff) {
       this.setState({
-        id: nextProps.staff.id,
+        id: nextProps.staff.url,
         name: nextProps.staff.name,
         gender: nextProps.staff.gender
       });

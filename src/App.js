@@ -16,7 +16,7 @@ class App extends Component {
 		}
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		this.getData()
 		// if(localStorage && localStorage.getItem('staffs')) {
 		//   var staffs = JSON.parse(localStorage.getItem('staffs'));
@@ -84,6 +84,11 @@ class App extends Component {
 			var index = this.findIndex(data.id);
 			staffs[index] = data
 		}
+		// var index = this.findIndex(data.name);
+		// 	staffs[index] = data
+		// 	console.log(index);
+		// 	console.log(staffs[index]);
+		// 	console.log(data);
 		this.setState({
 			staffs: staffs,
 			staffEditing: null
@@ -95,7 +100,7 @@ class App extends Component {
 		var { staffs } = this.state;
 		var result = -1
 		staffs.forEach((staff, index) => {
-			if (staff.id === id) {
+			if (staff.url === id) {
 				result = index
 			}
 		});
@@ -105,7 +110,6 @@ class App extends Component {
 	onDelete = (id) => {
 		var { staffs } = this.state;
 		var index = this.findIndex(id);
-
 		if (index !== -1) {
 			staffs.splice(index, 1);
 			this.setState({
